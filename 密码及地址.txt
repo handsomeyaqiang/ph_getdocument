@@ -1,0 +1,27 @@
+1、调度平台任务脚本位置
+mysql任务 /opt/app/dmp/sched/jobs/
+hadoop任务 /opt/app/hdmp/sched/jobs/
+2、报表系统的cpt文档位置，把cpt文件放在79服务器上，Tomcat在67和79上都有
+sudo su - reporter
+cd /data/report/apache-tomcat-8.5.29/webapps/ROOT/WEB-INF/reportlets/
+3、报表系统管理员账号
+admin/  PNW6Nhf1et6QMON
+dw_admin bLad9KLESZLadKLj3seVqG7vf
+4、外网堡垒机地址：https://s.ucredit.com/
+5、内网堡垒机地址：https://59.151.26.222/client/index-new.php
+6、报表系统地址：https://report.ucredit.com/ReportServer?op=fs
+7、gitlab仓库地址：http://gitlab.youxin.com
+8、mysql任务调度平台
+https://dw-admin.ucredit.com/frame.py
+9、Hadoop任务调度平台
+https://dw-admin.ucredit.com/daihou/frame.py
+8/9密码：P2PYxDtGp
+10、友信技术部
+http://dev.ucredit.com/
+11、rpt邮件
+用户名：rpt，密码：ShuJuJueCeDW@*@
+12、rpt邮件地址 
+/opt/app/dmp/sched/jobs/ExportFRExcel
+13、hive的查询地址https://dw-search.ucredit.com/beeswax/#query
+用户名：wangfengbo 密码：yCAyZikr
+配置host: 59.151.26.214 dw-search.ucredit.com

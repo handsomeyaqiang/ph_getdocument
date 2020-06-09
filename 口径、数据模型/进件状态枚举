@@ -1,0 +1,83 @@
+进件状态流转码值：
+
+/** * 客户录入中 */ CUSTOMER_INPUTTING(200, "CUSTOMER_INPUTTING", "等待客户录入信息", 9),
+
+/** * 客户已提交,请确认 */ CUSTOMER_SUBMIT(201, "CUSTOMER_SUBMIT", "客户已提交,请确认", 9),
+
+/** * 客户驳回 */ CUSTOMER_REJECT(202, "CUSTOMER_REJECT", "客户驳回,请修改", 9),
+
+/** * 客户-借款申请表签字 */ CUSTOMER_SIGN_LOAN_TABLE(200, "CUSTOMER_SIGN_LOAN_TABLE", "等待客户借款申请表签字", 9),
+
+/** * 客户运营商认证 */ CUSTOMER_OPERATORS_VALIDATE(202, "CUSTOMER_OPERATORS_VALIDATE", "等待客户运营商认证", 9),
+
+/** * 电销处理中（电销的电销处理中：等待确认） */ WAITING_CONFIRM(1, "WAITING_CONFIRM", "等待确认中", 2),
+
+/** * 录入中 */ INPUTTING(2, "INPUTTING", "录入中", 1),
+
+/** * 等待分配 */ WAITING_ASSIGN(3, "WAITING_ASSIGN", "等待分配", 0),
+
+/** * 等待质检(门店质量检查) */ BRANCH_CHECK(4, "BRANCH_CHECK", "等待质检", 2),
+
+/** * 门店拒贷 */ BRANCH_REJECTED(5, "BRANCH_REJECTED", "门店拒贷", 5),
+
+/** * 等待受理 */ SUBMITTED(6, "SUBMITTED", "等待受理", 2),
+
+/** * 审核中 */ PROCESSING(7, "PROCESSING", "审核中", 2),
+
+/** * 申请复议 */ REVIEWING(8, "REVIEWING", "申请复议", 2),
+
+/** * 初定完成 */ INIT_REVIEWED(9, "INIT_REVIEWED", "初定完成", 2),
+
+/** * 终定完成 */ SIGNOFF_AWAIT(10, "SIGNOFF_AWAIT", "终定完成", 3),
+
+/** * 放弃签约(超时自动放弃) */ SIGNOFF_CANCELLED(11, "SIGNOFF_CANCELLED", "超时放弃签约", 0),
+
+/** * 门店或客户放弃签约(门店或客户主动放弃) */ GIVE_UP(12, "GIVE_UP", "门店放弃签约", 0),
+
+/** * 等待签约审核 */ LOAN_APPROVE_AWAIT(13, "LOAN_APPROVE_AWAIT", "等待签约审核", 8),
+
+/** * 签约审核驳回 */ LOAN_PAY_REJECT(14, "LOAN_PAY_REJECT", "签约审核驳回", 8),
+
+/** * 已签约 */ LOAN_AWAIT(15, "LOAN_AWAIT", "已签约", 8),
+
+/** * 退件 */ REJECTED(16, "REJECTED", "退件", 2),
+
+/** * 拒贷 */ CREDIT_REJECTED(17, "CREDIT_REJECTED", "拒贷", 5),
+
+/** * 调查完成 */ CREDIT_TASK_FINISHED(18, "CREDIT_TASK_FINISHED", "调查完成", 2),
+
+/** * 放款驳回 */ LOAN_REJECTED(19, "LOAN_REJECTED", "放款驳回", 8),
+
+/** * 正常到期 */ REPAID(20, "REPAID", "正常到期", 0),
+
+/** * 已提前还清 */ IN_ADVANCE_REPAID(21, "IN_ADVANCE_REPAID", "已提前还清", 0),
+
+/** * 退回重审 */ FINAL_AUDIT_REJECT(22, "FINAL_AUDIT_REJECT", "退回重审", 0),
+
+/** * 展期完成，待结清 */ EXTENDED(23, "EXTENDED", "展期完成", 0),
+
+/** * 已放款 */ REPAYING(24, "REPAYING", "已放款", 4),
+
+/** * 进件被退件后删除(由于进件在被退件时，已经关联了很多表，所以不删除进件本身，只改状态) */ DELETED(25, "DELETED", "已删除", 0),
+
+/** * 补充调查 */ EXTRA_INFORMATION(26, "EXTRA_INFORMATION", "补充调查", 2),
+
+/** * 补充调查完成 */ EXTRA_INFORMATION_COMPLETED(27, "EXTRA_INFORMATION_COMPLETED", "补充调查完成", 2),
+
+
+
+REJECTED
+CREDIT_REJECTED
+REPAID
+IN_ADVANCE_REPAID
+SIGNOFF_CANCELLED
+DELETED
+BRANCH_REJECTED
+GIVE_UP
+REPAYING
+INPUTTING
+PROCESSING
+SUBMITTED
+WAITING_CONFIRM
+BRANCH_CHECK
+SIGNOFF_AWAIT

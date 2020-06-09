@@ -1,0 +1,2 @@
+branchname|<datadt>|<mailname>|<mailtext>|<mailto>|<copyto>
+147|enddate|销售日报-个贷-<datadt>|<div>领导好：<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;附件为[销售日报-个贷-<datadt>]，请查收，谢谢。</div>|xuhongxia@youxin.com|niuxiaoguang@youxin.com;shengqun@youxin.com;zhangqiang@youxin.com;lichao01@youxin.com;shenyurong@youxin.com;surong@youxin.com;wangfengbo@youxin.com;lixinguang@youxin.com;wangyaqiang@youxin.com;qiuyahan@youxin.com

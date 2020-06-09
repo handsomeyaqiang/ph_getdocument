@@ -1,0 +1,34 @@
+每日下班前检查目前可能影响任务运行的因素，主要包括以下情况：
+（1）在数仓线上执行“show full processlist”查看当前数据库运行语句情况（主要查看当前运行时间过程的SQL，此种SQL有可能会影响数仓抽数任务的正常进行），如遇影响任务运行的查询进程需联系执行人清除；
+（2）需要在线上thread数据库执行“select lendrequestid,count(1) from thread.lend_request_ledgers group by lendrequestid having count(1) >1”，查看是否进件号唯一，如有不唯一的记录，会影响任务运行（注：可以在shell中使用mysql命令连接thread进行查看）
+
+mysql -udwuser -pm8P7sppammbsmeqJIDuP -h172.16.2.139 -P3309
+select lendrequestid,count(1) from thread.lend_request_ledgers group by lendrequestid having count(1) >1;
+exit
+mysql -udiaodu -pzjKSt0QQrEIMsjm -h172.16.2.142 -P3309
+select id, db, user, host, command, time, state, info
+from information_schema.processlist
+where command != 'Sleep'
+order by time desc\G
+exit
+
+
+b开头的，是总部业管
+c开头的，是大区
+d开头的，是区域
+e开头的，是门店
+
+select * from dim.d_dim_org_inf where AREA_ID = 147 and GROUP_ID = 2435;
+select * from dim.d_dim_org_inf where AREA_ID = 147 and GROUP_NAME REGEXP '客户服务南京';
+
+-- 查询执行时间超过2分钟的线程，然后拼接成 kill 语句
+select concat('kill ', id, ';')
+from information_schema.processlist
+where command != 'Sleep'
+and time > 2*60
+order by time desc\G 
+
+
+
+p_new_ps_info_extract 一般是没有权限，先保证表里有一般数据，让后面的直系依赖任务执行即可。
+使用t_s_type与t_s_typegroup的 可用select b.DATA_NAME as typename ,b.DATA_CODE as typecode from sys_data_dictionary a join sys_data_dictionary b on a.ID = b.PARENT_ID where a.DATA_CODE = 'extranetCode' 代替
