@@ -1,0 +1,27 @@
+############################# Server Basics #############################
+
+# The id of the broker. This must be set to a unique integer for each broker.
+broker.id=0
+port=19092
+############################# Log Basics #############################
+
+# A comma separated list of directories under which to store log files
+log.dirs=/bigdata/data00/kafka-2.5,/bigdata/data01/kafka-2.5,/bigdata/data02/kafka-2.5,/bigdata/data03/kafka-2.5,/bigdata/data04/kafka-2.5,/bigdata/data05/kafka-2.5,/bigdata/data06/kafka-2.5,/bigdata/data07/kafka-2.5,/bigdata/data08/kafka-2.5,/bigdata/data09/kafka-2.5,/bigdata/data10/kafka-2.5,/bigdata/data11/kafka-2.5
+
+# The default number of log partitions per topic. More partitions allow greater
+# parallelism for consumption, but this will also result in more files across
+# the brokers.
+num.partitions=6
+
+
+############################# Zookeeper #############################
+
+# Zookeeper connection string (see zookeeper docs for details).
+# This is a comma separated host:port pairs, each corresponding to a zk
+# server. e.g. "127.0.0.1:3000,127.0.0.1:3001,127.0.0.1:3002".
+# You can also append an optional chroot string to the urls to specify the
+# root directory for all kafka znodes.
+zookeeper.connect=172.16.2.232:2181,172.16.2.233:2181,172.16.2.234:2181,172.16.2.235:2181,172.16.2.236:2181/kafka-2.5
+
+# Timeout in ms for connecting to zookeeper
+zookeeper.connection.timeout.ms=18000

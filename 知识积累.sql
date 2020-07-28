@@ -116,4 +116,11 @@ done
 24.统计linux行数
 wc -l xxx.txt
 25、当前日期：date "+%Y-%m-%d %H:%M:%S"
+26、脚本执行SQL，将数据导入数据库
+mysql -h 172.16.2.142 -P 3309 -u diaodu -p'zjKSt0QQrEIMsjm' test -e"
+select * from app.p_ecif_emphasis_branch_quota
+">p_ecif_emphasis_branch_quota.txt
+
+mysql -h 172.16.2.155 -P 3306 -u diaodu -p'zjKSt0QQrEIMsjm' 
+LOAD DATA LOCAL INFILE '/opt/app/dmp/tmp/wangyaqiang/p_ecif_emphasis_branch_quota.txt' into table app.p_ecif_emphasis_branch_quota character set utf8  lines terminated by '\n' ignore 1 lines;
 
