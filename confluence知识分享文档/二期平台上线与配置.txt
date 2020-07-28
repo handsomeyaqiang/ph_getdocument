@@ -1,0 +1,95 @@
+
+目前以确定使用 172.16.2.104与172.16.2.102两台机器作为调度平台的服务器
+请在这两台服务器上执行以下操作
+
+1、安装数据库连接模块
+sudo yum install MySQL-python
+
+安装完成后，进入python Console
+执行import MySQLdb，如果无 ImportError 即成功安装
+
+
+2、在每台机器上新建/opt/app/dmp文件夹，并将dmp的权限赋予lixinguang
+mkdir /opt/app/dmp
+chown lixinguang.lixinguang /opt/app/dmp
+
+
+3、在每台机器上新建 /data/sched 作为任务运行日志的存储，并将sched的权限赋予lixinguang
+mkdir /data/sched
+chown lixinguang.lixinguang /data/sched
+在/data/sched下建立文件夹logs /data/sched/logs
+
+
+4、上传调度脚本至/opt/app/dmp下
+上传完成后的脚本目录为/opt/app/dmp/ucredit
+                      /opt/app/dmp/ucredit/data/...
+在/opt/app/dmp下新建文件夹sched 用来存储脚本及调度运行日志、任务日志
+在/opt/app/dmp/sched下新建如下文件夹
+drwxrwxr-x 2 hadoop hadoop 4096 Aug 28 15:14 genscript --自动生成脚本的临时存放目录
+drwxrwxr-x 2 hadoop hadoop 4096 Aug 28 15:14 jobs      --任务运行脚本目录
+drwxrwxr-x 2 hadoop hadoop 4096 Aug 31 20:48 logs      --调度及任务运行日志，因为/data分区存储较大，所以软连接到/data/sched/logs下
+drwxrwxr-x 2 hadoop hadoop 4096 Aug 31 20:48 pid       --进程产生的PID文件，其中文件中的ID为进程号，重启调度需删除次文件夹下的文件
+
+5、在环境变量文件.bash_profile 中增加如下环境变量，用于运行调度命令
+
+export DMP_HOME=/opt/app/dmp
+alias sched='/opt/app/dmp/ucredit/data/scheduler/bin/sched'
+alias dist='/opt/app/dmp/ucredit/data/util/dist.py'
+alias looper='/opt/app/dmp/ucredit/data/util/looper.py'
+
+6、调度平台数据库连接配置：
+   变更调度的配置文件/opt/app/dmp/ucredit/data/scheduler/conf/conf.py
+   变更/opt/app/dmp/ucredit/data/util/dist.py 的第9行hosts='10.255.33.3,6'，此处配置与conf.py相同即可，'172.16.2.104,172.16.2.102' or '172.16.2.102,104',
+   用来执行dist命令
+   设置/opt/app/dmp/ucredit/data/db/DBC.py 中73-77 行的数据库连接配置，配置与conf.py相同，此处配置在Tasker.py中使用了
+   变更/opt/app/dmp/ucredit/data/util/Tasker.py 第708行数据连接，此处连接线上数仓数据库
+   
+   数仓线上数据库配置：
+   设置/opt/app/dmp/ucredit/data/db/DictDb.py 使配置指向数仓的线上库
+
+7、在调度平台的线上数据库db_datamgrcfg中创建调度底层表
+db_source_cfg              --数据源配置表，抽取线上系统数据需在此表中进行配置
+exec_cfg                   --抽取任务类别表，用于拓展普通抽取和分库分表抽取
+first_permission           --WEB端访问一级权限配置表
+second_permission          --WEB端访问二级权限配置表
+third_permission           --WEB端访问三级权限配置表
+sched_job                  --运行任务主表，记录所有运行的任务及任务属性
+sched_job_record           --任务运行状态表，记录任务运行的当前状态，与sched_job一一对应
+sched_job_log              --任务运行日志表，记录任务运行的历史状态及运行时间
+sched_job_dependency       --任务依赖表，记录任务间的依赖关系
+sched_job_user             --调度平台用户表，此表数据应与sched_job.man对应
+sep_tb_cfg                 --分库分表抽取配置表
+task_info_cfg              --抽取任务配置表
+
+初始化sched_job_user、first_permission、second_permission、third_permission超级用户数据
+
+使用界面或在db_source_cfg表中手工配置线上数据库连接
+
+8、102与104配置ssh免密码登陆
+更改ssh登陆用户为lixinguang  /opt/app/dmp/ucredit/data/scheduler/web/web.py
+                           与/opt/app/dmp/ucredit/data/scheduler/bin/sched
+9、请在数仓的线上数据库中新建如下4个数据库，做为数据平台的主要数据存储；字符集为UTF8
+   stg            数据抽取缓冲层
+   ods            数据贴源层
+   mid            临时数据存储区
+   dwa            数据模型层
+   
+
+
+调度平台的代码传至线上服务器172.16.2.104：/opt/app/dmp下
+平台启用需要协助配置几处数据库的连接；用于操作数仓线上数据库（stg,ods,dwa,mid, db_datamgrcfg）
+所以配置均需使用数仓线上数据库能够读写的用户（能够读写stg,ods,dwa,mid, db_datamgrcfg）。
+
+以下是需要配置的位置，为了举例，需要变更的位置已经填上内容了，请更新对应字段后更新对应脚本。
+
+1、	脚本 /opt/app/dmp/ucredit/data/scheduler/conf/conf.py 配置
+在64行 sched_dbc=dict(host='172.16.2.97',port=3306,user='etluser',passwd='etluser',db='db_datamgrcfg')
+
+2、	脚本/opt/app/dmp/ucredit/data/db/DBC.py 配置
+在77行 self.register(dbn,db=db,host='172.16.2.97',port=3306,user='etluser',passwd='etluser')
+
+3、	脚本 /opt/app/dmp/ucredit/data/util/Tasker.py 配置
+在715行conn=MySQLdb.connect(host='172.16.2.97',port=3306,user='etluser',passwd='etluser',db='stg',charset="utf8")
+
+4、	脚本 /opt/app/dmp/ucredit/data/db/DictDb.py配置
+在5行dictetl=dict(host='172.16.2.97',port=3306,user='etluser',passwd='etluser',db='test')
