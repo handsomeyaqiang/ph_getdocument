@@ -46,7 +46,7 @@ alter table app.p_ph_sale_index_cumulativeness_da drop column EXTEND_SIGNED_RATE
 -- find . -type f -name "*.php" | xargs grep "hello"
 -- grep a_ln_account_da *.cpt
 -- grep a_ln_account_da */*.cpt
-
+sed -n '/brokerid/p' server.properties
 
 20、excel字段拼接
 =VLOOKUP(C2,Sheet2!A:B,2,FALSE)
@@ -78,6 +78,11 @@ tar -zcvf hello.tgz hello/
 对应的解压方式是
 
 tar -xzvf hello.tgz 
+
+23、查看目录或文件大小
+df -h
+du -sh 
+
 
  
 
@@ -124,3 +129,5 @@ select * from app.p_ecif_emphasis_branch_quota
 mysql -h 172.16.2.155 -P 3306 -u diaodu -p'zjKSt0QQrEIMsjm' 
 LOAD DATA LOCAL INFILE '/opt/app/dmp/tmp/wangyaqiang/p_ecif_emphasis_branch_quota.txt' into table app.p_ecif_emphasis_branch_quota character set utf8  lines terminated by '\n' ignore 1 lines;
 
+27、查看centos版本号：cat /etc/redhat-release
+28、查看rpm已安装的包：rpm -qa | grep docker

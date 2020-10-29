@@ -1,1 +1,3 @@
 hive1.2.1版本，Hadoop2.6版本
+hive -e "insert overwrite table dwa.a_ln_account_da partition(dt='2020-09-02')
+slect * from dwa.a_apply_da"
