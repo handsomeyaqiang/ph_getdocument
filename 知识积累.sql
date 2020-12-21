@@ -48,6 +48,9 @@ alter table app.p_ph_sale_index_cumulativeness_da drop column EXTEND_SIGNED_RATE
 -- grep a_ln_account_da */*.cpt
 sed -n '/brokerid/p' server.properties
 
+    "vue-router": "^3.4.9",
+	    "vue": "^2.5.16",
+
 20¡¢excel×Ö¶ÎÆ´½Ó
 =VLOOKUP(C2,Sheet2!A:B,2,FALSE)
 

@@ -19,7 +19,7 @@ https://dw-admin.ucredit.com/daihou/frame.py
 10、友信技术部
 http://dev.ucredit.com/
 11、rpt邮件
-用户名：rpt，密码：ShuJuJueCeDW&*&
+用户名：rpt，密码：ShuJuJueCeDW&*
 12、rpt邮件地址 
 /opt/app/dmp/sched/jobs/ExportFRExcel
 13、hive的查询地址https://dw-search.ucredit.com/beeswax/#query
